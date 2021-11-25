@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+                      "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="RU">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ГОСТ 28147-89 тестовая страница</title>
+  </head>
+
+  <body>
+
+    <h1>ГОСТ test page</h1>
+
+    <table>
+      <tr><td>Iterations</td><td><input id='iterations' value='256' type="text"></td></tr>
+      <tr><td>Max length</td><td><input id='maxLen' value='256' type="text"></td></tr>
+      <tr><td><input id='button' type='button' value='Start' onclick='return handler()'></td></tr>
+    </table>
+    <p id='updNode'>Status: Idle</p>
+
+    <div id="mp81ss-scripts">
+      <script type='text/javascript' src='../src/gost_hash.js'></script>
+      <script type='text/javascript' src='../src/gost.js'></script>
+      <script type='text/javascript' src='gost_test.js'></script>
+      <script type='text/javascript'>
+        console.log(GostHash.hash(''));
+        console.log(GostHash.hashCrypto(''));
+
+        var handler = function() {
+          var iterations = document.getElementById('iterations').value;
+          var maxLen = document.getElementById('maxLen').value;
+          var re = /^\d+$/;
+          
+          if (re.exec(iterations) === null) {
+            alert('Bad iterations number');
+          }
+          else if (re.exec(maxLen) === null) {
+            alert('Bad max len number');
+          }
+          else {
+            var node = document.getElementById('updNode');
+            if (node.innerText.charAt(node.innerText.length - 1) == '.') {
+              return false;
+            }
+            node.innerText = 'Status: Running...';
+
+            setTimeout(function() {
+              var endTime, startTime = new Date();
+              gostTest(parseInt(iterations, 10), parseInt(maxLen, 10));
+              endTime = new Date(); 
+              node.innerText = 'Status: DONE in ' +
+              Number((endTime - startTime) / 1000).toString() +
+              ' seconds';
+            }, 10);
+          }
+          return false;
+        };
+      </script>
+    </div>
+  </body>
+</html>
