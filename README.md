@@ -10,18 +10,47 @@ The cipher (called *magma*) is implemented with updated sbox from **RFC 8891**
 
 The hash function is available in two variants:
  - Standard variant (with sbox from **RFC 4351**), commonly called *GOST*
- - The *CryptoPro* variant is implemented with sbox suggested by [CryptoPro company](https://www.cryptopro.ru) in **RFC 4357**, commonly called *gost-crypto*
+ - The *CryptoPro* variant, implemented with sbox suggested by [CryptoPro company](https://www.cryptopro.ru) in **RFC 4357**, commonly called *gost-crypto*
 
-## Installation/Usage
+## Usage
+### Cipher
+The cipher offers two functions:
+ - *encrypt*
+ - *decrypt*
+
+The *encrypt* function takes a string (plaintext) and the key, that can be an array of **8** integers, or a hexadecimal string of length **64**\
+The *decrypt* function takes the ciphertext (a string returned by *encrypt* and a key\
+*Note*: There is **no way** to know if decryption was correct
 ``` html
-<script type='text/javascript' src='gost_hash.js'></script>
 <script type='text/javascript' src='gost.js'></script>
 ```
-Hash and cipher are independent, so you can use only one if needed
+``` js
+var pt = 'gost';
+var key = [0, 1, 2, 3, 4, 5, 6, 7];
+var ct = GostCipher.encrypt(pt, key);
+var secret = GostCipher.decrypt(ct, key);
+if (secret != pt) {
+  alert('gost cipher failed');
+}
+```
+### Hash
+There are two public functions, both take a string and return its hash as string. Functions are:
+ - *hash* (standard version)
+ - *hashCrypto* (CryptoPro version)
+``` html
+<script type='text/javascript' src='gost_hash.js'></script>
+```
+``` js
+console.log(GostHash.hashCrypto('')); // Write the gost-crypto hash of the empty string
+console.log(GostHash.hash('hello world'));  // Write the gost hash of the 'hello wordl' string
+```
+*Notes*:
+ - Hash and cipher are independent, so you can use only one if needed
+ - See [test file](test/gost_test.html) for code example
 
 ## Compatibility
-You can find a lots of richer and better alternative cryptographic libraries for your site\
-But you won't find a lot of solutions compliant with for **ECMAScript 3**\
+You can find a richer and better alternative cryptographic libraries for your site\
+But you won't find many solutions compliant with **ECMAScript 3**\
 RSS has been tested with most modern browsers down to **MSIE7**\
 so you shouldn't have any compatibility issues!
 
