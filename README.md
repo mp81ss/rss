@@ -6,7 +6,7 @@ The encryption algorithm is [**GOST 28147-89**](https://en.wikipedia.org/wiki/GO
 The hash algorithm is [**GOST R 34.11-94**](https://en.wikipedia.org/wiki/GOST_(hash_function)) in two variants: *standard* and *crypto*, see details below
 
 ## Details
-The cipher (called *magma*) is implemented with updated sbox from **RFC 8891**
+The cipher (called *magma*) is implemented with updated sbox from **RFC 8891** in **CBC** mode
 
 The hash function is available in two variants:
  - Standard variant (with sbox from **RFC 4351**), commonly called *GOST*
@@ -20,7 +20,7 @@ The cipher offers two functions:
 
 The *encrypt* function takes a string (plaintext) and the key, (can be an array of **8** integers or a hexadecimal string of length **64**\
 The *decrypt* function takes the ciphertext (a string returned by *encrypt*) and the key\
-*Note*: There is **no way** to know if decryption was correct
+*Note*: There is **no way** to know if decryption was correct, you have to verify it
 ``` html
 <script type='text/javascript' src='gost.js'></script>
 ```
