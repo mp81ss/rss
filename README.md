@@ -18,7 +18,7 @@ The cipher offers two functions:
  - *encrypt*
  - *decrypt*
 
-The *encrypt* function takes a string (plaintext) and the key, (can be an array of **8** integers or a hexadecimal string of length **64**\
+The *encrypt* function takes a string (plaintext) and the key, (can be an array of **8** integers or a hexadecimal string of length **64**)\
 The *decrypt* function takes the ciphertext (a string returned by *encrypt*) and the key\
 *Note*: There is **no way** to know if decryption was correct, you have to verify it
 ``` html
